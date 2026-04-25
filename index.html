@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Samadhi Nisansala Samarasekera — Interior Architect</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #F5F0E8;
+      --dark: #1A1A18;
+      --olive: #4A4A35;
+      --accent: #8B7355;
+      --light-line: rgba(74,74,53,0.15);
+      --white: #FFFFFF;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--dark);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(245,240,232,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--light-line);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.12em;
+      color: var(--olive);
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+    .nav-links {
+      display: flex; gap: 2.5rem; list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--olive);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column; gap: 5px; cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 1px;
+      background: var(--olive); transition: all 0.3s;
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--cream);
+      z-index: 200;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      color: var(--dark);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+    .close-btn {
+      position: absolute; top: 1.5rem; right: 2rem;
+      font-size: 2rem; cursor: pointer; color: var(--olive);
+      background: none; border: none;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 72px;
+    }
+    .hero-text {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 5rem 3rem 5rem 5rem;
+    }
+    .hero-eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2rem;
+    }
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      line-height: 1.05;
+      font-weight: 300;
+      color: var(--dark);
+      margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2.5rem;
+    }
+    .hero-bio {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: #555;
+      max-width: 480px;
+      margin-bottom: 3rem;
+    }
+    .hero-cta {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.85rem 2rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--olive);
+      color: var(--olive);
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn:hover, .btn-primary:hover {
+      background: var(--olive);
+      color: var(--cream);
+    }
+    .btn-primary {
+      background: var(--olive);
+      color: var(--cream);
+    }
+    .btn-primary:hover {
+      background: var(--dark);
+      border-color: var(--dark);
+    }
+    .btn svg { width: 14px; height: 14px; }
+
+    .hero-image {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+    .hero-image::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(245,240,232,0.25) 0%, transparent 60%);
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 7rem 5rem; }
+    .section-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--dark);
+      margin-bottom: 3rem;
+    }
+    .divider {
+      width: 48px; height: 1px;
+      background: var(--accent);
+      margin: 1.5rem 0 2.5rem;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--dark);
+      color: var(--cream);
+    }
+    #about .section-title { color: var(--cream); }
+    #about .section-label { color: #9B8E7A; }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 4rem;
+    }
+    .about-info h3 {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #9B8E7A;
+      margin-bottom: 1.5rem;
+    }
+    .about-info p, .about-info li {
+      font-size: 0.88rem;
+      line-height: 1.85;
+      color: rgba(245,240,232,0.75);
+      margin-bottom: 0.6rem;
+    }
+    .about-info ul { list-style: none; }
+    .about-info li { display: flex; align-items: flex-start; gap: 0.5rem; }
+    .about-info li::before { content: '—'; color: var(--accent); flex-shrink: 0; }
+    .contact-item {
+      display: flex; align-items: center; gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+    .contact-icon {
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(245,240,232,0.2);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .contact-icon svg { width: 13px; height: 13px; fill: #9B8E7A; }
+    .contact-item a, .contact-item span {
+      font-size: 0.82rem;
+      color: rgba(245,240,232,0.75);
+      text-decoration: none;
+      word-break: break-all;
+    }
+    .contact-item a:hover { color: var(--cream); }
+
+    /* Software icons */
+    .software-grid {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;
+    }
+    .sw-tag {
+      padding: 0.3rem 0.8rem;
+      border: 1px solid rgba(245,240,232,0.2);
+      font-size: 0.67rem;
+      letter-spacing: 0.1em;
+      color: rgba(245,240,232,0.6);
+      text-transform: uppercase;
+    }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--cream); }
+    .projects-intro {
+      max-width: 560px;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: #666;
+      margin-bottom: 5rem;
+    }
+
+    .project-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin-bottom: 6rem;
+      align-items: stretch;
+    }
+    .project-item:nth-child(even) .project-info { order: -1; }
+    .project-item:nth-child(even) .project-gallery { order: 1; }
+
+    .project-gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 4px;
+      aspect-ratio: 4/3;
+    }
+    .project-gallery img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .project-gallery img:hover { transform: scale(1.03); }
+    .project-gallery .main-img {
+      grid-column: 1 / 3;
+      max-height: 260px;
+    }
+    .project-gallery-single {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+    }
+    .project-gallery-single .main-img { grid-column: 1; max-height: none; }
+
+    .project-info {
+      padding: 3.5rem 4rem;
+      display: flex; flex-direction: column; justify-content: center;
+      background: #EFEBE2;
+    }
+    .project-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+    .project-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 2.5vw, 2.3rem);
+      line-height: 1.15;
+      font-weight: 300;
+      color: var(--dark);
+      margin-bottom: 0.8rem;
+    }
+    .project-client {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2rem;
+    }
+    .project-desc {
+      font-size: 0.87rem;
+      line-height: 1.85;
+      color: #666;
+    }
+
+    /* ── CONTACT SECTION ── */
+    #contact {
+      background: var(--dark);
+      text-align: center;
+      padding: 7rem 5rem;
+    }
+    #contact .section-label { color: #9B8E7A; }
+    #contact .section-title { color: var(--cream); margin-bottom: 1rem; }
+    .contact-tagline {
+      font-size: 0.9rem;
+      color: rgba(245,240,232,0.6);
+      margin-bottom: 3.5rem;
+      letter-spacing: 0.05em;
+    }
+    .contact-buttons {
+      display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;
+    }
+    .btn-contact {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      padding: 1.1rem 2.5rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid rgba(245,240,232,0.35);
+      color: var(--cream);
+      background: transparent;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .btn-contact svg { width: 16px; height: 16px; stroke: currentColor; fill: none; }
+    .btn-contact:hover {
+      background: var(--cream);
+      color: var(--dark);
+      border-color: var(--cream);
+    }
+    .btn-call { border-color: rgba(139,115,85,0.7); }
+    .btn-call:hover { background: var(--accent); color: var(--cream); border-color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(245,240,232,0.08);
+      padding: 2rem 5rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    footer p { font-size: 0.72rem; color: rgba(245,240,232,0.3); letter-spacing: 0.1em; }
+    .footer-linkedin a {
+      font-size: 0.7rem;
+      color: rgba(245,240,232,0.4);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+    }
+    .footer-linkedin a:hover { color: var(--cream); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      #hero {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+      }
+      .hero-text {
+        padding: 2.5rem 1.8rem;
+        order: 2;
+      }
+      .hero-image {
+        order: 1;
+        height: 55vw;
+        min-height: 260px;
+      }
+
+      section { padding: 4.5rem 1.8rem; }
+      #contact { padding: 4.5rem 1.8rem; }
+      footer { padding: 1.5rem 1.8rem; flex-direction: column; gap: 0.8rem; text-align: center; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      .project-item {
+        grid-template-columns: 1fr;
+        margin-bottom: 4rem;
+      }
+      .project-item:nth-child(even) .project-info { order: 2; }
+      .project-item:nth-child(even) .project-gallery { order: 1; }
+      .project-info { padding: 2rem 1.8rem; }
+      .project-gallery { aspect-ratio: 16/9; }
+      .project-gallery .main-img { max-height: 180px; }
+
+      .hero-cta { flex-direction: column; }
+      .contact-buttons { flex-direction: column; align-items: center; }
+      .btn-contact { width: 100%; max-width: 300px; justify-content: center; }
+    }
+
+    @media (max-width: 500px) {
+      .hero-name { font-size: 2.4rem; }
+      .section-title { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SNS</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="hamburger" onclick="openMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-btn" onclick="closeMenu()">×</button>
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#projects" onclick="closeMenu()">Projects</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Interior Architecture Portfolio</p>
+    <h1 class="hero-name">Samadhi<br>Nisansala<br>Samarasekera</h1>
+    <p class="hero-title">Interior Architect</p>
+    <p class="hero-bio">5 years of experience in freelance and in-office work, specializing in space planning, design, and project management. Executed and contributed to the design of over 30 projects across commercial, residential, institutional, and hotel sectors.</p>
+    <div class="hero-cta">
+      <a href="tel:+393518595438" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Call Me
+      </a>
+      <a href="mailto:nisansalasamarasekera@gmail.com" class="btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Email Me
+      </a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="images/profile.jpg" alt="Samadhi Nisansala Samarasekera" />
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label reveal">Who I Am</p>
+  <h2 class="section-title reveal">Interior Architect<br><em>with a Vision</em></h2>
+  <div class="about-grid">
+    <div class="about-info reveal">
+      <h3>Contact</h3>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </div>
+        <a href="tel:+393518595438">(+39) 3518595438</a>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <a href="mailto:nisansalasamarasekera@gmail.com">nisansalasamarasekera@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <span>Via Giacomo Matteotti 09, 20051 Cassina De' Pecchi, Italy</span>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </div>
+        <a href="https://www.linkedin.com/in/samadhi-samarasekera-4430032b3" target="_blank">LinkedIn Profile</a>
+      </div>
+    </div>
+
+    <div class="about-info reveal">
+      <h3>Education &amp; Experience</h3>
+      <p style="color:#9B8E7A; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.5rem;">Education</p>
+      <p>BA in Interior Architecture<br><em style="color:rgba(245,240,232,0.5); font-size:0.82rem;">Limkokwing University of Creative Technology — President's Award</em><br><span style="color:rgba(245,240,232,0.4); font-size:0.78rem;">October 2016 – December 2019</span></p>
+      <div style="margin-top:1.8rem;">
+        <p style="color:#9B8E7A; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.5rem;">Experience</p>
+        <p style="margin-bottom:1rem;">Freelance Interior Designer<br><span style="color:rgba(245,240,232,0.4); font-size:0.78rem;">January 2023 – January 2026</span></p>
+        <p>Interior Designer — Studio ViVeGe<br><span style="color:rgba(245,240,232,0.4); font-size:0.78rem;">March 2020 – December 2022</span></p>
+      </div>
+    </div>
+
+    <div class="about-info reveal">
+      <h3>Software</h3>
+      <div class="software-grid">
+        <span class="sw-tag">AutoCAD</span>
+        <span class="sw-tag">3ds Max</span>
+        <span class="sw-tag">V-Ray</span>
+        <span class="sw-tag">Lumion</span>
+        <span class="sw-tag">SketchUp</span>
+        <span class="sw-tag">Photoshop</span>
+        <span class="sw-tag">MS Office</span>
+      </div>
+      <div style="margin-top:2.5rem;">
+        <h3>Highlights</h3>
+        <ul style="margin-top:1rem;">
+          <li>30+ projects across 4 sectors</li>
+          <li>Commercial &amp; Retail spaces</li>
+          <li>Residential interiors</li>
+          <li>Institutional &amp; Hotel projects</li>
+          <li>Space planning specialist</li>
+          <li>Project management</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label reveal">Selected Works</p>
+  <h2 class="section-title reveal">Portfolio of<br><em>Projects</em></h2>
+  <p class="projects-intro reveal">A curated selection of commercial, retail, hospitality, and industrial interior projects spanning Sri Lanka, India, and beyond.</p>
+
+  <!-- Project 1 -->
+  <div class="project-item reveal">
+    <div class="project-gallery">
+      <img class="main-img" src="images/p1_product_display/01.jpg" alt="Product Display Area main" loading="lazy" />
+      <img src="images/p1_product_display/02.png" alt="Product Display Area 2" loading="lazy" />
+      <img src="images/p1_product_display/03.png" alt="Product Display Area 3" loading="lazy" />
+    </div>
+    <div class="project-info">
+      <p class="project-number">01 / 08</p>
+      <h3 class="project-name">Product Display Area</h3>
+      <p class="project-client">DPL Sport Glove Complex — Sri Lanka</p>
+      <p class="project-desc">A dynamic product display environment designed to showcase sporting goods with precision and visual impact. The space balances industrial and modern aesthetics to highlight the brand's identity within a manufacturing complex.</p>
+    </div>
+  </div>
+
+  <!-- Project 2 -->
+  <div class="project-item reveal">
+    <div class="project-gallery">
+      <img class="main-img" src="images/p2_fabric_library/01.jpg" alt="Fabric Library main" loading="lazy" />
+      <img src="images/p2_fabric_library/02.png" alt="Fabric Library 2" loading="lazy" />
+      <img src="images/p2_fabric_library/03.png" alt="Fabric Library 3" loading="lazy" />
+    </div>
+    <div class="project-info">
+      <p class="project-number">02 / 08</p>
+      <h3 class="project-name">Fabric Library</h3>
+      <p class="project-client">Teejay India Private Ltd — India</p>
+      <p class="project-desc">An elegant fabric library space that merges function with sophisticated materiality. Designed to provide textile professionals with an inspiring and organized environment for material sourcing and creative exploration.</p>
+    </div>
+  </div>
+
+  <!-- Project 3 -->
+  <div class="project-item reveal">
+    <div class="project-gallery">
+      <img class="main-img" src="images/p3_showroom/01.jpg" alt="Showroom main" loading="lazy" />
+      <img src="images/p3_showroom/02.jpg" alt="Showroom 2" loading="lazy" />
+      <img src="images/p3_showroom/03.jpg" alt="Showroom 3" loading="lazy" />
+    </div>
+    <div class="project-info">
+      <p class="project-number">03 / 08</p>
+      <h3 class="project-name">Showroom</h3>
+      <p class="project-client">Satlo Lanka Pvt Ltd — Sri Lanka</p>
+      <p class="project-desc">A contemporary retail showroom concept that invites customers into a curated brand world. The design prioritizes flow, light, and product storytelling to create a memorable shopping experience.</p>
+    </div>
+  </div>
+
+  <!-- Project 4 -->
+  <div class="project-item reveal">
+    <div class="project-gallery">
+      <img class="main-img" src="images/p4_reception_prym/01.jpg" alt="Reception Prym main" loading="lazy" />
+      <img src="images/p4_reception_prym/02.png" alt="Reception Prym 2" loading="lazy" />
+      <img src="images/p4_reception_prym/03.png" alt="Reception Prym 3" loading="lazy" />
+    </div>
+    <div class="project-info">
+      <p class="project-number">04 / 08</p>
+      <h3 class="project-name">Reception</h3>
+      <p class="project-client">Prym Intimates Zhongshan Ltd</p>
+      <p class="project-desc">A sophisticated corporate reception area that communicates the brand's global stature and values. The design creates a lasting first impression with clean lines, premium materials, and a refined colour palette.</p>
+    </div>
+  </div>
+
+  <!-- Project 5 -->
+  <div class="project-item reveal">
+    <div class="project-gallery">
+      <img class="main-img" src="images/p5_swisstek/01.jpeg" alt="Swisstek main" loading="lazy" />
+      <img src="images/p5_swisstek/02.png" alt="Swisstek 2" loading="lazy" />
+      <img src="images/p5_swisstek/03.png" alt="Swisstek 3" loading="lazy" />
+    </div>
+    <div class="project-info">
+      <p class="project-number">05 / 08</p>
+      <h3 class="project-name">Reception &amp; Design Studio Lobby</h3>
+      <p class="project-client">Swisstek Aluminium Ltd — Sri Lanka</p>
+      <p class="project-desc">A dual-purpose space merging reception formality with creative studio energy. Bold geometric motifs reference the aluminium industry while the layout supports both visitor welcome and internal design collaboration.</p>
+    </div>
+  </div>
+
+  <!-- Project 6 -->
+  <div class="project-item reveal">
+    <div class="project-gallery">
+      <img class="main-img" src="images/p6_craftsmen/01.jpg" alt="Craftmenship Room main" loading="lazy" />
+      <img src="images/p6_craftsmen/02.jpg" alt="Craftmenship Room 2" loading="lazy" />
+      <img src="images/p6_craftsmen/03.png" alt="Craftmenship Room 3" loading="lazy" />
+    </div>
+    <div class="project-info">
+      <p class="project-number">06 / 08</p>
+      <h3 class="project-name">Craftsmanship Room</h3>
+      <p class="project-client">MAS Intimates Slimline Pvt Ltd — Sri Lanka</p>
+      <p class="project-desc">A dedicated showcase space celebrating the craft and artistry behind intimate wear design. The room is designed as a gallery of skill, blending tactile surfaces with curated lighting to honour the human element of production.</p>
+    </div>
+  </div>
+
+  <!-- Project 7 -->
+  <div class="project-item reveal">
+    <div class="project-gallery">
+      <img class="main-img" src="images/p7_vegan_cafe/01.jpg" alt="Vegan Cafe main" loading="lazy" />
+      <img src="images/p7_vegan_cafe/02.jpg" alt="Vegan Cafe 2" loading="lazy" />
+      <img src="images/p7_vegan_cafe/03.jpg" alt="Vegan Cafe 3" loading="lazy" />
+    </div>
+    <div class="project-info">
+      <p class="project-number">07 / 08</p>
+      <h3 class="project-name">Vegan Café</h3>
+      <p class="project-client">Colombo — Sri Lanka</p>
+      <p class="project-desc">A warm, nature-inspired café interior that communicates ethical eating through organic forms and sustainable materials. The design invites guests into a calming retreat that reflects the ethos of plant-based living.</p>
+    </div>
+  </div>
+
+  <!-- Project 8 -->
+  <div class="project-item reveal">
+    <div class="project-gallery">
+      <img class="main-img" src="images/p8_factory_canteen/01.jpg" alt="Factory Canteen main" loading="lazy" />
+      <img src="images/p8_factory_canteen/02.jpg" alt="Factory Canteen 2" loading="lazy" />
+      <img src="images/p8_factory_canteen/03.jpg" alt="Factory Canteen 3" loading="lazy" />
+    </div>
+    <div class="project-info">
+      <p class="project-number">08 / 08</p>
+      <h3 class="project-name">Factory Canteen</h3>
+      <p class="project-client">CBL Foods International (Pvt) Limited — Sri Lanka</p>
+      <p class="project-desc">A large-scale industrial canteen redesigned to uplift employee wellbeing through thoughtful space planning, improved acoustics, and a vibrant yet functional aesthetic appropriate to a fast-moving food production environment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Get In Touch</p>
+  <h2 class="section-title">Let's Create<br><em>Something Beautiful</em></h2>
+  <p class="contact-tagline">Open to new projects, collaborations, and opportunities worldwide.</p>
+  <div class="contact-buttons">
+    <a href="tel:+393518595438" class="btn-contact btn-call">
+      <svg viewBox="0 0 24 24" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+      </svg>
+      Call Me — (+39) 3518595438
+    </a>
+    <a href="mailto:nisansalasamarasekera@gmail.com" class="btn-contact">
+      <svg viewBox="0 0 24 24" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </svg>
+      Email Me
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Samadhi Nisansala Samarasekera</p>
+  <div class="footer-linkedin">
+    <a href="https://www.linkedin.com/in/samadhi-samarasekera-4430032b3" target="_blank">LinkedIn ↗</a>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  function openMenu() { document.getElementById('mobileMenu').classList.add('open'); }
+  function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Stagger reveals in about grid
+  document.querySelectorAll('.about-grid .reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.15}s`;
+  });
+</script>
+</body>
+</html>
